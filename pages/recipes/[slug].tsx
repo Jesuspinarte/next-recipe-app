@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/rules-of-hooks */
 /* eslint-disable @next/next/no-img-element */
 /* eslint-disable jsx-a11y/alt-text */
 import { PortableText } from "@portabletext/react";
@@ -35,9 +36,13 @@ interface RecipePageProps {
 }
 
 const RecipePage: NextPage<RecipePageProps> = ({ data, preview }) => {
+  if (!data) {
+    return <div>Is Loading...</div>;
+  }
+
   const { data: recipe } = usePreviewSubscription(recipeQuery, {
     params: { slug: data.recipe.slug.current },
-    initialData: data.recipe,
+    initialData: data?.recipe,
     enabled: preview,
   });
 
@@ -52,10 +57,6 @@ const RecipePage: NextPage<RecipePageProps> = ({ data, preview }) => {
     const data = await res?.json();
     setLikes(data.likes);
   };
-
-  if (!data) {
-    return <div>Is Loading...</div>;
-  }
 
   return (
     <article className="recipe">
