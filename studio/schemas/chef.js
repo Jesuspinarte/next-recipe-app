@@ -19,7 +19,7 @@ export default {
     {
       name: "bio",
       title: "Bio",
-      type: "Array",
+      type: "array",
       of: [
         {
           title: "Block",
